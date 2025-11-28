@@ -1,9 +1,10 @@
-import mongoose, { schema } from "mongoose";
+import mongoose from "mongoose";
+const { Schema } = mongoose;
 
-const userSchema = new schema(
+const userSchema = new Schema(
   {
     username: {
-      type: string,
+      type: String,
       required: true,
       unique: true,
       lowercase: true,
@@ -11,35 +12,35 @@ const userSchema = new schema(
       index: true,
     },
     email: {
-      type: string,
+      type: String,
       required: true,
       unique: true,
       trim: true,
     },
     fullName: {
-      type: string,
+      type: String,
       required: true,
       trim: true,
     },
     avatar: {
-      type: string,
+      type: String,
       required: true,
     },
     coverImage: {
-      type: string,
+      type: String,
     },
     watchHistory: [
       {
-        type: schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Video",
       },
     ],
     password: {
-      type: string,
+      type: String,
       required: [true, "Password is required"],
     },
     refreshToken: {
-      type: string,
+      type: String,
     },
   },
 
