@@ -187,7 +187,6 @@ const logOutUser = asyncHandler(async (req, res) => {
     //need to be updated after middleware
     ();
 });
-
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const incomingRefreshToken =
     req.cookies.refreshToken || req.body.refreshToken;
