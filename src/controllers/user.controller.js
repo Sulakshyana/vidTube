@@ -2,6 +2,7 @@ import { User } from "../models/user.models.js";
 import { ApiResponse } from "../utils/api-response.js";
 import { ApiError } from "../utils/api-error.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import mongoose from "mongoose";
 import {
   uploadOnCloudinary,
   deleteFromCloudinary,
@@ -282,18 +283,16 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
   if (!email) {
     throw new ApiError(400, req.user, "Email is required");
   }
-  const user = await user
-    .findByIdAndUpdate(
-      req.user?._id,
-      {
-        $set: {
-          fullname,
-          email: email,
-        },
+  const user = await User.findByIdAndUpdate(
+    req.user?._id,
+    {
+      $set: {
+        fullname,
+        email: email,
       },
-      { new: true }
-    )
-    .select("-password, -refreshToken");
+    },
+    { new: true }
+  ).select("-password -refreshToken");
   return res
     .status(200)
     .json(new ApiResponse(200, user, "User details updated successfully."));
@@ -415,11 +414,11 @@ const getUserChannelProfile = asyncHandler(async (res, reg) => {
     );
 });
 
-const getWatchHistory = asyncHandler(async (res, reg) => {
+const getWatchHistory = asyncHandler(async (req, res) => {
   const user = await User.aggregate([
     {
       $match: {
-        _id: new mongoose.Types.ObjectId(res.user?._id),
+        _id: new mongoose.Types.ObjectId(req.user?._id),
       },
     },
     {
@@ -449,7 +448,7 @@ const getWatchHistory = asyncHandler(async (res, reg) => {
           {
             $addFields: {
               owner: {
-                $first: "owner",
+                $first: "$owner",
               },
             },
           },

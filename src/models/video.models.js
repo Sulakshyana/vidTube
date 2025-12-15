@@ -1,21 +1,21 @@
-import mongoose, { schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
-const videoSchema = new schema(
+const videoSchema = new Schema(
   {
     videoFile: {
-      type: string, //cloudinary url
+      type: String, //cloudinary url
       required: true,
     },
     thumbnail: {
-      type: string, //cloudinary url
+      type: String, //cloudinary url
       required: true,
     },
     title: {
-      type: string,
+      type: String,
       required: true,
     },
     description: {
-      type: string,
+      type: String,
       required: true,
     },
     duration: {
@@ -28,7 +28,7 @@ const videoSchema = new schema(
     },
 
     isPublished: {
-      type: boolean,
+      type: Boolean,
       default: true,
     },
     owner: {

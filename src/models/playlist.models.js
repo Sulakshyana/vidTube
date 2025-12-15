@@ -1,13 +1,13 @@
-import mongoose, { schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-const playListSchema = new schema(
+const playListSchema = new Schema(
   {
     name: {
-      type: string,
+      type: String,
       required: true,
     },
     description: {
-      type: string,
+      type: String,
       required: true,
     },
     video: {
